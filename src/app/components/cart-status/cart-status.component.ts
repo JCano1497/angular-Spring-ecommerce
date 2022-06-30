@@ -12,7 +12,6 @@ export class CartStatusComponent implements OnInit {
   totalPrice: number= 0;
   totalQuantity: number = 0;
   constructor(private cartService: CartService) {
-    this.updateCartService();
   }
   updateCartService() {
     //subscribe to cart
@@ -25,6 +24,8 @@ export class CartStatusComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.updateCartService();
+    console.log(this.cartService.cartItems);
   }
 
 }

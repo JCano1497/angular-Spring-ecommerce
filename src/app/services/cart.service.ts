@@ -9,12 +9,21 @@ import { Subject } from 'rxjs';
 export class CartService {
 
   cartItems: CartItem[] =[];
-  private cart:Map<number, CartItem> = new Map<number, CartItem>();
-  // subject is a subclass of observable
-  //event will be sent to all subscribers
+  storage: Storage = localStorage;
+
   totalPrice: Subject<number> = new Subject<number>();
   totalQuantity: Subject<number> = new Subject<number>();
-  constructor() { }
+  constructor() {
+    let data =JSON.parse(this.storage.getItem('cartItems')!);
+    if(data !=null){
+      this.cartItems = data;
+      this.computeTotal();
+    }
+  }
+
+  persistCartItems(){
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
+  }
 
   addToCart(theCartItem: CartItem) {
 
@@ -38,9 +47,10 @@ export class CartService {
       totalQuantityValue += currentCartItem.quantity;
     }
 
-    // publish the new values ... all subscribers will receive the new data
+    // publish the new values to all subscribers
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
+    this.persistCartItems();
 
   }
 
