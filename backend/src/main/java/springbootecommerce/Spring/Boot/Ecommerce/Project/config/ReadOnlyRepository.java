@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface ReadOnlyRepository<T, ID> extends JpaRepository<T, ID> {
     Optional<T> findById(ID id);
     List<T> findAll();
+    //extended out the JPA rep so user wouldn't be able to make non reading actions
 }
