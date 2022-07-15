@@ -1,3 +1,4 @@
+import { CartService } from 'src/app/services/cart.service';
 import { State } from './../../common/state';
 import { Country } from './../../common/country';
 import { ShopFormService } from './../../services/shop-form.service';
@@ -23,7 +24,8 @@ export class CheckoutComponent implements OnInit {
   billingAddressStates: State[] = [];
 
   constructor(private formBuilder: FormBuilder,
-              private shopFormService: ShopFormService) {
+              private shopFormService: ShopFormService,
+              private cartService: CartService) {
     this.checkoutFormGroup =this.formBuilder.group({
       customer: this.formBuilder.group({
         firstName: [''],
@@ -76,6 +78,15 @@ export class CheckoutComponent implements OnInit {
         console.log(JSON.stringify(data));
         this.countries = data;
       }
+    )
+    this.reviewCartDetail();
+  }
+  reviewCartDetail(){
+    this.cartService.totalQuantity.subscribe(
+      totalQuantity => this.totalQuantity = totalQuantity
+    )
+    this.cartService.totalPrice.subscribe(
+      totalPrice => this.totalPrice = totalPrice
     )
   }
   onSubmit(){
