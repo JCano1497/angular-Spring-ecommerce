@@ -15,6 +15,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
 //order matters
 const routs: Routes=[
   {path: 'checkout', component: CheckoutComponent},
@@ -38,7 +39,8 @@ const routs: Routes=[
     ProductDetailsComponent,
     CartStatusComponent,
     CartDetailsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    LoginComponent
 
   ],
   imports: [
